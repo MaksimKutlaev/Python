@@ -39,10 +39,10 @@
 # 1. Напишите программу, которая будет на вход принимать число N и выводить числа от -N до N
 #     *Примеры:* 
 #     - 5 -> -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5
-print('Введите число ')
-N=int(input())
-for i in range (-N,N+1):
-    print(i, end=' ')
+# print('Введите число ')
+# N=int(input())
+# for i in range (-N,N+1):
+#     print(i, end=' ')
 
 # n = int(input())
 # a = []
@@ -75,3 +75,26 @@ for i in range (-N,N+1):
 # else:
 #     print('No')
  
+
+
+def inputNumbers(x):
+    xyz = ["X", "Y", "Z"]
+    a = []
+    for i in range(x):
+        a.append(input(f"Введите значение {xyz[i]}: "))
+    return a
+
+
+def checkPredicate(x):
+    left = not (x[0] or x[1] or x[2])
+    right = not x[0] and not x[1] and not x[2]
+    result = left == right
+    return result
+
+
+statement = inputNumbers(3)
+
+if checkPredicate(statement) == True:
+    print(f"Утверждение истинно")
+else:
+    print(f"Утверждение ложно")
