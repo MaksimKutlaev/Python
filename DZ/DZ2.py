@@ -3,33 +3,15 @@
 # - 6782 -> 23
 # - 0,56 -> 11
 
-num=float(input('Введите число'))
-print(num)
-sum=0
-while num>0:
-    sum=sum+(num%10)
-    num=num//10
-    for i in str(num):
-        if i !='.':
-            sum +=int(i)
-print(int(sum))
-
-# x = input('Введите число ')
-
-# def summa(x):                            #Функция нахождения суммы чисел в заданном числе
-#     if float(x) < 0:                            #Проверка на знак перед числом
-#         x = float(x) * (-1)
-#     number = 0
-
-#     for i in str(x):
-#         if i != '.':
-#             number += int(i)
-#     return number
-
+num = input('Введите число ')
+summ = 0
+for i in str(num):
+        if i != '.':
+            summ += int(i)
    
-# print(f'Сумма чисел равна {summa(x)}')
+print(f'Сумма чисел равна {summ}')
 
-
+exit()
 
 # Напишите программу, которая принимает на вход число N и выдает набор произведений чисел от 1 до N.
 # Пример:
