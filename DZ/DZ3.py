@@ -22,7 +22,7 @@ spisok=[2, 3, 4, 5, 6, 7, 8]
 product_list=[]
 product=0
 index_last=spisok[-1]
-for index in range(int(len(spisok)/2+1)):
+for index in range(int(len(spisok)+1)/2):
     # print(index_last)
     product=spisok[index]*index_last
     # print(spisok[index])
@@ -62,7 +62,7 @@ print(result)
 
 print('Введите число:')
 n=int(input())
-print(bin(n).replace("0b",""))
+print(bin(n).replace("0b","")) #bin(n)[2::]
 
 
 #  Задайте число. Составьте список чисел Фибоначчи, в том числе для отрицательных индексов.(Дополнительно)
