@@ -20,8 +20,7 @@ def push_button():
             resume=True
         elif is_resume==2:
             resume=False
-        else:
-            print('Вводите только 1 или 2')
+        
         
             
 
