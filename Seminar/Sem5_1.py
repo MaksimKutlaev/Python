@@ -25,16 +25,16 @@ for i in range(len(a)):
 # Пример:
 # [1,5,2,3,4,6,1,7]=>[1,2,3] или [1,7] или [1,6,7] и т.д.
 
-# spisok=[1, 5, 2, 3, 4, 6, 1, 7]
-# spisok2=[]
-# min=spisok[0]
-# spisok2.append(min)
-# for i in range(len(spisok)):
-#     if spisok[i]>min:
-#         min=spisok[i]
-#         spisok2.append(spisok[i])
+spisok=[1, 5, 2, 3, 4, 6, 1, 7]
+spisok2=[]
+min=spisok[0]
+spisok2.append(min)
+for i in range(len(spisok)):
+    if spisok[i]>min:
+        min=spisok[i]
+        spisok2.append(spisok[i])
     
-# print(spisok2)
+print(spisok2)
 
 # # 3. Напишите программу, удаляющую из текста все слова, содержащие "абв".
 # # *'абвгд гдежз жзе абв ыопыпт'-> 'гдежз жзе ыопыпт'
