@@ -9,7 +9,6 @@ def add_contact(contact):
             count+=1
         
         new_contact=f'{count+1}; {contact}'
-        print(new_contact)
         file.close()
         with open('DZ/DZ7/base.txt', 'a', encoding='utf-8') as file:
             file.write(f'\n {new_contact}')
@@ -20,6 +19,5 @@ def add_contact(contact):
 
 def open_base():
     with open('DZ/DZ7/base.txt', 'r', encoding="utf-8") as base:
-        print(f'печать {base}')
         return base.read()
 
