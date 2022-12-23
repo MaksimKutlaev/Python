@@ -100,9 +100,12 @@ def input_dat(message):
         
 
 @bot.message_handler(func=lambda message: message.text.lower() == "курс")
-def exchange(message):
+def start_exchange(message):
     msg=bot.send_message(message.chat.id, "Какую валюту показать?")
     bot.register_next_step_handler(msg,exchange)
+    
+@bot.message_handler(func=start_exchange)
+def exchange(message):
     URL = 'https://www.cbr-xml-daily.ru/daily_json.js'
     page = requests.get(URL).json()
     if message.text=='usd':
