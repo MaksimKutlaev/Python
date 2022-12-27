@@ -24,6 +24,9 @@ def del_contact(base,result):
 
 def edit_contact(base,contact,new_contact):
     base=base.split('\n')
-    id=contact.split(';')[0]
-    base[base.index(contact)]=id+';'+new_contact
+    print(contact)
+    id=contact.split()[0]
+    print(id)
+    index=base.index(contact)
+    base[index]=id +' '+new_contact
     return base 

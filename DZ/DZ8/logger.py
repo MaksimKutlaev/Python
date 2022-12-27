@@ -18,7 +18,7 @@ def add_contact(contact):
             
             
 def update_base(new_data):
-    new_data_csv=[i.split('; ')for i in new_data]
+    new_data_csv=[i.split(';')for i in new_data]
     with open('DZ8/base.scv','w',encoding='utf-8') as file:
          writer=csv.writer(file, delimiter=';')
          writer.writerows(new_data_csv)

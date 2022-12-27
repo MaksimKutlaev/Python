@@ -16,8 +16,10 @@ def new_contact():
     email=input()
     return f'{name}; {prof}; {phone}; {email}'
 
-
-
+def choice(result):
+    print(f'Какой контакт редактировать?')
+    for i in result:
+        return input()
 
 def show_contact(result):
     for i in result:
