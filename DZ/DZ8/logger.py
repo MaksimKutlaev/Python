@@ -10,7 +10,7 @@ def add_contact(contact):
         new_contact=f'{count+1}; {contact}'
         file.close()
         with open('DZ8/base.txt', 'a', encoding='utf-8') as file:
-            file.write(f'\n {new_contact}')
+            file.write(f'\n{new_contact}')
             file.close()
         with open('DZ8/base.scv', 'a', encoding='utf-8') as b:
             writer=csv.writer(b, delimiter=';')
