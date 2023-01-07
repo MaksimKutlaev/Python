@@ -1,0 +1,99 @@
+import telebot
+import logging
+from random import randint
+from random import choice
+import requests
+
+
+bot = telebot.TeleBot("5952862933:AAHGZn1Yzf77nbtjCC6txGlXdCoJ6do7UB0")
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(message, f"{message.from_user.first_name}, how are you doing?")
+
+
+candys = dict()
+enable_game = dict()
+turn = dict()
+
+
+def handle_game_proc(message):
+    global enable_game
+    try:
+        if enable_game[message.chat.id] and 1 <= int(message.text) <= 28:
+            return True
+        else:
+            return False
+    except KeyError:
+        enable_game[message.chat.id] = False
+        if enable_game[message.chat.id] and 1 <= int(message.text) <= 28:
+            return True
+        else:
+            return False
+
+@bot.message_handler(commands=['game'])
+def send_welcome(message):
+    global turn, candys, enable_game
+    candys[message.chat.id] = 117
+    bot.send_message(message.chat.id, f'Начало игры -> Конфеты')
+    bot.send_message(message.chat.id, f'На столе 117 конфет')
+    bot.send_message(message.chat.id, f'Тащите по очереди конфеты не более 28 штук')
+    bot.send_message(message.chat.id, f'Кто последний берет конфеты, тот проиграл!')
+    User=message.from_user.first_name
+    turn[message.chat.id] = choice(['Bot', User])
+    bot.send_message(message.chat.id, f'Начинает игру {turn[message.chat.id]}')
+    enable_game[message.chat.id] = True
+    if turn[message.chat.id] == 'Bot':
+        take = randint(1, candys[message.chat.id] % 28)
+        candys[message.chat.id] -= take
+        bot.send_message(message.chat.id, f'Бот взял {take}')
+        bot.send_message(message.chat.id,
+                         f'На столе сталось {candys[message.chat.id]}')
+        turn[message.chat.id] = User
+
+
+@bot.message_handler(func=handle_game_proc)
+def game_process(message):
+    global candys, turn, enable_game
+    User=message.from_user.first_name
+    if turn[message.chat.id] == User:
+        if candys[message.chat.id] > 28:
+            candys[message.chat.id] -= int(message.text)
+            bot.send_message(message.chat.id,
+                             f'На столе осталось {candys[message.chat.id]}')
+            if candys[message.chat.id] > 28:
+                take = randint(1, candys[message.chat.id] % 28)
+                candys[message.chat.id] -= take
+                bot.send_message(message.chat.id,
+                                 f'Бот взял {take}')
+                bot.send_message(message.chat.id,
+                                 f'Осталось {candys[message.chat.id]}')
+                if candys[message.chat.id] <= 28:
+                    bot.send_message(message.chat.id, f'{User} победил')
+                    enable_game[message.chat.id] = False
+            else:
+                bot.send_message(message.chat.id, 'Бот победил')
+                enable_game[message.chat.id] = False
+        else:
+            bot.send_message(message.chat.id, 'Бот победил')
+            enable_game[message.chat.id] = False
+            
+            
+@bot.message_handler(commands= ['курс'])
+def start_exchange(message):
+    msg=bot.send_message(message.chat.id, "Какую валюту показать?")
+    bot.register_next_step_handler(msg, exchange)
+    
+@bot.message_handler(func=start_exchange)
+def exchange(message):
+    URL = 'https://www.cbr-xml-daily.ru/daily_json.js'
+    page = requests.get(URL).json()
+    if message.text=='usd':
+        bot.send_message(message.chat.id,f"{page['Valute']['USD']['Value']}, {page['Valute']['USD']['Name']}")
+    elif message.text=='eur':   
+        bot.send_message(message.chat.id,f"{page['Valute']['EUR']['Value']}, {page['Valute']['EUR']['Name']}")
+    elif message.text=='cny':
+        bot.send_message(message.chat.id,f"{page['Valute']['CNY']['Value']}, {page['Valute']['CNY']['Name']}")
+
+
+bot.infinity_polling()
