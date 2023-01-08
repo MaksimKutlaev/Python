@@ -1,14 +1,18 @@
 import csv
 
-def add_contact(contact):
+def add_contact(contact,all_ids):
     with open('DZ8/base.txt', 'r', encoding='utf-8') as file:
-        base=file.read()
-        c_base=base.split('\n')
-        count=0
-        for i in c_base:
-            count+=1
-        new_contact=f'{count+1}; {contact}'
-        file.close()
+        # base=file.read()
+        # c_base=base.split('\n')
+        new_id=1
+        id_is_create=False
+        while id_is_create==False:
+            if f'{new_id}' in all_ids:
+                new_id+=1
+            else:
+                id_is_create=True
+        new_contact=f'{new_id}; {contact}'
+        # file.close()
         with open('DZ8/base.txt', 'a', encoding='utf-8') as file:
             file.write(f'\n{new_contact}')
             file.close()
